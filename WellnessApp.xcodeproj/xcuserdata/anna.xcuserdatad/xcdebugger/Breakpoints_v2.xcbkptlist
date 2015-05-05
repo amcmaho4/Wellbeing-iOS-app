@@ -73,22 +73,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WellnessApp/AppDelegate.swift"
-            timestampString = "452517925.423615"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "WellnessApp/SurveyTableViewController.swift"
             timestampString = "452325210.883638"
             startingColumnNumber = "9223372036854775807"
@@ -138,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WellnessApp/AppDelegate.swift"
-            timestampString = "452518709.656376"
+            timestampString = "452539242.192173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "updateParseLocalDataStore()"
             landmarkType = "5">
          </BreakpointContent>
@@ -320,27 +304,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WellnessApp/AppDelegate.swift"
-            timestampString = "452518709.656376"
+            timestampString = "452539242.192173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "updateParseLocalDataStore()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WellnessApp/AppDelegate.swift"
-            timestampString = "452535998.433288"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
             landmarkName = "setRootViewController()"
             landmarkType = "5">
          </BreakpointContent>
@@ -352,11 +320,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WellnessApp/AppDelegate.swift"
-            timestampString = "452518709.656376"
+            timestampString = "452539242.192173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "AppDelegate"
             landmarkType = "3">
             <Locations>
@@ -480,11 +448,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WellnessApp/AppDelegate.swift"
-            timestampString = "452518709.656376"
+            timestampString = "452539242.192173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "application(_:performFetchWithCompletionHandler:)"
             landmarkType = "5">
          </BreakpointContent>

@@ -51,7 +51,7 @@ class homeTableViewController: UITableViewController {
 		// register hometableview subclass
 		self.tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: self.cellIdentifier)
 		self.tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: self.cellHeaderIdentifier)
-		//maketheobjectswithLocalDataStore()
+		maketheobjectswithLocalDataStore()
 		self.tableView.reloadData()
 		self.tableView.setNeedsDisplay()
 		

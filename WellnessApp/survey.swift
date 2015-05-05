@@ -215,7 +215,7 @@ func makeNotifications() {
 			reminder.fireDate = sendTime
 			reminder.timeZone = NSTimeZone.localTimeZone()
 			reminder.alertBody = " Time to take your "+surveyDescriptor + " survey"
-			reminder.repeatInterval = NSCalendarUnit.DayCalendarUnit
+			reminder.repeatInterval = NSCalendarUnit.CalendarUnitDay
 			notifications.append(reminder)
 			UIApplication.sharedApplication().scheduleLocalNotification(reminder)
 		}

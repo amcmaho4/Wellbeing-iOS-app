@@ -13,7 +13,6 @@ import Bolts
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	var currentUser: PFUser?
-	//var homeTableViewController: homeTableViewController?
 	
 	var window: UIWindow?
 	var sendTime: NSDate = NSDate().dateByAddingTimeInterval(10)
@@ -29,42 +28,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		dataShouldBeReset = true 
 		initializeParse()
 		setRootViewController();
-		//updateParseLocalDataStore()
-		//homeTableViewController().maketheobjectswithLocalDataStore()
-
-	//	UIApplication.sharedApplication().cancelAllLocalNotifications()
+		
 		
 		application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
-		var minfetch = UIApplicationBackgroundFetchIntervalMinimum
+		var minfetch = UIApplicationBackgroundFetchIntervalMinimum  // set to the minimum amount
 		
 		//if application.respondsToSelector("registerUserNotificationSettings:") {
 			let types:UIUserNotificationType = (.Alert | .Badge | .Sound)
 			let settings:UIUserNotificationSettings = UIUserNotificationSettings(forTypes: types, categories: nil)
 			application.registerUserNotificationSettings(settings)
-			application.registerForRemoteNotifications()
+			//application.registerForRemoteNotifications()
 		//}
 		
 
 		return true
-	}
-	
-	func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-		
-		println("didRegisterForRemoteNotificationsWithDeviceToken")
-		let currentInstallation = PFInstallation.currentInstallation()
-		currentInstallation.setDeviceTokenFromData(deviceToken)
-		currentInstallation.saveInBackgroundWithBlock { (succeeded, e) -> Void in
-			//code
-		}
-	}
-	
-	func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-		println("failed to register for remote notifications:  (error)")
-	}
-	
-	func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-		println("didReceiveRemoteNotification")
-		PFPush.handlePush(userInfo)
 	}
 	
 	func application(application: UIApplication,didRegisterUserNotificationSettings
@@ -91,8 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	}
 	func applicationWillEnterForeground(application: UIApplication) {
-		println("Hello again world")
-		homeTableViewController().maketheobjectswithLocalDataStore()
 	}
 	
 	func initializeParse(){
@@ -126,16 +101,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 						if error == nil {
 							if let objects = objects as? [PFObject] {
 								PFObject.pinAllInBackground(objects)
-								
 								NSThread.exit()
 							}
 						}
 					}
 				}
-					
-					//homeTableViewController().maketheobjectswithLocalDataStore()
-					//homeTableViewController().tableView.setNeedsDisplay()
-					homeTableViewController().setReset()
 				}
 			}else {
 				println("FAILED HERE")
@@ -166,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate:  NSDate())
 		let currentHour = components.hour
 		
-		if(currentHour<13){
+		if(currentHour<6){
 			//PFObject.unpinAllObjects()
 			//clearCurrentLocalData()
 			//updateParseLocalDataStore()
@@ -191,8 +161,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 										})
 									})
 							}
-							homeTableViewController().maketheobjectswithLocalDataStore()
+
 							unPinSuccess = true
+							print("here")
 							return PFObject.pinAllInBackground(AllSurveys as? [AnyObject])
 							})
 					})
@@ -201,8 +172,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			if unPinSuccess {
 					NSThread.exit()
 			}
-			
-				}
+			completionHandler(UIBackgroundFetchResult.NewData)
+		}
 		}
 	
 	func setRootViewController(){
