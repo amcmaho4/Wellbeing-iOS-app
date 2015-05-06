@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>17E60E7A-B407-46F5-A9AC-1170E1734A8D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>project</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>BAF79CA21EC5B6F36AC088054E2774FB2CCA2E1D</key>
+		<string>https://github.com/amcmaho4/Wellbeing-iOS-app.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>WellnessApp.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>BAF79CA21EC5B6F36AC088054E2774FB2CCA2E1D</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/amcmaho4/Wellbeing-iOS-app.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>BAF79CA21EC5B6F36AC088054E2774FB2CCA2E1D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BAF79CA21EC5B6F36AC088054E2774FB2CCA2E1D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>WellnessApp</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -78,7 +78,7 @@ class loginViewController: UIViewController {
 			NSLog("Retry");
 			break;
 		case 0:
-			self.performSegueWithIdentifier("createAccountSegue", sender: self)
+			self.performSegueWithIdentifier("MakeAccount", sender: self)
 			break;
 		default:
 			NSLog("Default");

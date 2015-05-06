@@ -45,7 +45,7 @@ class signinViewController: UIViewController {
 		user.password = condenseWhitespace(passwordText.text)
   		user.email = condenseWhitespace(emailText.text)
 		
-
+		
 //  		 other fields can be set just like with PFObject
 		user["userID"] = UIDevice.currentDevice().identifierForVendor.UUIDString
 		user["currentAppVersion"] = "ND-WB-SAV-2015-04-18"
@@ -53,6 +53,7 @@ class signinViewController: UIViewController {
 		(succeeded: Bool, error: NSError?) -> Void in
 		if error == nil {
 		println("signed UP")
+			self.DismissKeyboard()
 			var appdelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 			var storyboard = UIStoryboard(name: "Main", bundle: nil)
 			appdelegate.window?.rootViewController = (storyboard.instantiateInitialViewController() as! UINavigationController)
@@ -78,8 +79,8 @@ class signinViewController: UIViewController {
 		var createAccountErrorAlert: UIAlertView = UIAlertView()
 		
 		createAccountErrorAlert.delegate = self
-		createAccountErrorAlert.title = "Oops"
-		createAccountErrorAlert.message = error as String
+		createAccountErrorAlert.title = "Sign Up not successful"
+		createAccountErrorAlert.message = "Username or Email is already taken"
 		createAccountErrorAlert.addButtonWithTitle("OK")
 		createAccountErrorAlert.show()
 	}

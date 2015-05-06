@@ -11,13 +11,8 @@ import UIKit
 class homeTableViewCell: UITableViewCell {
 
 	@IBOutlet var timeLabel: UILabel!
-	
 	@IBOutlet var surveyLabel: UILabel!
-	
 	@IBOutlet var surveyProgressView: UIProgressView!
-	
-	//let currentSurvey = Survey.self
-	
 	@IBOutlet var surveyDescriptionImageView: UIImageView!
 
 	enum surveyIdentifiers : String {

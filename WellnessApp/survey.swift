@@ -12,21 +12,23 @@ import UIKit
 //import SQLite
 import Parse
 class survey {
+	//data pulled from the parse data store:
 	var questions : [question] = [question]()
 	var surveyName : String!
 	var surveyTime : NSDate!
-	var updated : Bool!
 	var sendTime: String
 	var surveyActiveDuration: Double = 0
 	var versionIdentifier:Double = 0.0
 	var active: Bool
 	var sendDays: [Int]
-	//displayed on the home screen
 	var surveyDescriptor : String
+
+	var userEmail: String
+	var updated : Bool!
+	//displayed on the home screen
 	var surveyTimeNiceFormat : String
 	var surveyExpirationTimeNiceFormat : String
-	var userEmail: String
-	var take = false
+	var taken = false
 	var dailyIterationNumber: Int?
 	var expirationTime: NSDate!
 	var possibleSendDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -77,30 +79,6 @@ func queryParseForSurveyData(){
 
 		var tempQuest : question = question()
 		var query = PFQuery(className:surveyName)
-	
-//	var query: PFQuery = PFQuery(className: surveyName)
-//	query.findObjectsInBackground().continueWithSuccessBlock({
-//		(task: BFTask!) -> AnyObject! in
-//		return PFObject.unpinAllObjectsInBackground().continueWithSuccessBlock({
-//			(ignored: BFTask!) -> AnyObject! in
-//			let allQuestions = task.result as? NSArray
-//			for ob in allQuestions! {
-//				//querysurveyStrings.append(ob["Survey"] as! String)
-//				tempQuest = question()
-//				tempQuest.answerOptions = objects[q]["options"] as! [String]
-//				tempQuest.answerType = objects[q]["questionType"] as! String
-//				tempQuest.questionString = objects[q]["question"] as! String
-//				tempQuest.questionID = objects[q]["questionId"] as! Int
-//				tempQuest.endPointStrings = objects[q]["endPoints"] as! [String]
-//				self.questions.append(tempQuest)
-//			}
-//			return PFObject.pinAllInBackground(AllSurveys as? [AnyObject], withName: surveyName)
-//		})
-//	})
-//	
-//		if !(IJReachability.isConnectedToNetwork()) {
-//			query.fromLocalDatastore()
-//		}
 		query.fromLocalDatastore()
 		query.findObjectsInBackgroundWithBlock {
 			(objects: [AnyObject]?, error: NSError?) -> Void in

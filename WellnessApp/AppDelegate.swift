@@ -10,6 +10,9 @@ import UIKit
 import Parse
 import Bolts
 
+let mySpecialNotificationKey = "com.amcmaho4.specialNotificationKey"
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	var currentUser: PFUser?
@@ -68,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	}
 	func applicationWillEnterForeground(application: UIApplication) {
+	
 	}
 	
 	func initializeParse(){
@@ -101,7 +105,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 						if error == nil {
 							if let objects = objects as? [PFObject] {
 								PFObject.pinAllInBackground(objects)
-								NSThread.exit()
 							}
 						}
 					}
@@ -114,20 +117,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}
 	
-	func updateTheData(){
-		var persistentInt:Int {
-			get {
-				return NSUserDefaults.standardUserDefaults().objectForKey("persistent Int") as! Int
-			}
-			set {
-				NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: "persistent Int")
-			}
-		}
-		
-		
-		
-	
-	}
 	func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
 		
 		//clearCurrentLocalData()
@@ -136,12 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate:  NSDate())
 		let currentHour = components.hour
 		
-		if(currentHour<6){
-			//PFObject.unpinAllObjects()
-			//clearCurrentLocalData()
-			//updateParseLocalDataStore()
-		
-			var unPinSuccess = false
+		if(currentHour>12){
 					var querysurveyStrings: [String] = [String]()
 					var query: PFQuery = PFQuery(className:"SurveySummary")
 					query.findObjectsInBackground().continueWithSuccessBlock({
@@ -161,17 +145,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 										})
 									})
 							}
-
-							unPinSuccess = true
 							print("here")
+							NSNotificationCenter.defaultCenter().postNotificationName(mySpecialNotificationKey, object: self)
 							return PFObject.pinAllInBackground(AllSurveys as? [AnyObject])
 							})
 					})
 			completionHandler(UIBackgroundFetchResult.NewData)
-
-			if unPinSuccess {
-					NSThread.exit()
-			}
+		}
+		else {
 			completionHandler(UIBackgroundFetchResult.NewData)
 		}
 		}

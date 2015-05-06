@@ -150,18 +150,18 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="C8m-gi-ebq">
-                                            <rect key="frame" x="24" y="29" width="525" height="31"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="521" id="ihG-bg-KxT"/>
-                                            </constraints>
-                                        </slider>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cq5-7r-6Ps">
                                             <rect key="frame" x="8" y="54" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="C8m-gi-ebq">
+                                            <rect key="frame" x="24" y="29" width="525" height="31"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="521" id="ihG-bg-KxT"/>
+                                            </constraints>
+                                        </slider>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="centerX" secondItem="C8m-gi-ebq" secondAttribute="centerX" constant="13.5" id="0Dk-a3-VP9"/>
@@ -265,22 +265,21 @@
                                     <action selector="loginButtonAction:" destination="299-xM-gwG" eventType="touchUpInside" id="zGM-wm-fHU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYZ-jk-QO1">
-                                <rect key="frame" x="236" y="446" width="128" height="30"/>
-                                <state key="normal" title="Create an Account">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="CreateAccountButtonAction:" destination="299-xM-gwG" eventType="touchUpInside" id="ZAQ-nZ-Z2u"/>
-                                    <segue destination="yYF-ff-9K0" kind="show" identifier="createAccountSegue" id="y8x-rr-wwo"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M7c-Hb-ClP">
                                 <rect key="frame" x="180" y="229" width="241" height="30"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYZ-jk-QO1">
+                                <rect key="frame" x="236" y="446" width="128" height="30"/>
+                                <state key="normal" title="Create an Account">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="yYF-ff-9K0" kind="presentation" identifier="MakeAccount" id="Tvt-4z-l3A"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
