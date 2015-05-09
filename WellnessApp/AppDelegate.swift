@@ -17,6 +17,9 @@ let updateKey = "com.amcmaho4.updateKey"
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	var currentUser: PFUser?
 	
+	var hourToStopPullingData = 3    //*************************CHANGE THIS IF NEEDED ********************//
+	
+	
 	var window: UIWindow?
 	var sendTime: NSDate = NSDate().dateByAddingTimeInterval(10)
 	var allNotificationsForApp: [UILocalNotification]?
@@ -118,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate:  NSDate())
 		let currentHour = components.hour
 		
-		if(currentHour<=2){
+		if(currentHour <= hourToStopPullingData){
 			
 					application.cancelAllLocalNotifications()	
 					var querysurveyStrings: [String] = [String]()
