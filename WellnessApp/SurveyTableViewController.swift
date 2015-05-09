@@ -8,6 +8,9 @@
 
 import UIKit
 import Parse
+
+let myUpdateTableKey = "com.amcmaho4.updateKey"
+
 class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 	var currentSurvey : survey = survey()
 	var completed = false
@@ -217,10 +220,8 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 		else{
 			updateParseDataStore()
 			currentSurvey.completed = true
-			
 			currentSurvey.surveyCompletedTime = NSDate()
 			self.navigationController?.popToRootViewControllerAnimated(true)
-		//	performSegueWithIdentifier("backToAllSurveys", sender: sender)
 		}
 	}
 	
@@ -297,12 +298,11 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 				NSLog("Retry");
 				break;
 			case 0:
-				//updateParseDataStore()
 				currentSurvey.surveyCompletedTime = NSDate()
 				currentSurvey.cancelNotifications()
 				currentSurvey.completed = true;
+			//	NSNotificationCenter.defaultCenter().postNotificationName(myUpdateTableKey, object: self)
 				self.navigationController?.popToRootViewControllerAnimated(true)
-				//performSegueWithIdentifier("backToAllSurveys", sender: self)
 				break;
 			default:
 				NSLog("Default");

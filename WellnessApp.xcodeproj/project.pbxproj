@@ -11,6 +11,7 @@
 		95285CAE1AF5BF15001989B7 /* higlightedBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95285CAC1AF5BF15001989B7 /* higlightedBarBackground@2x.png */; };
 		95285CAF1AF5BF15001989B7 /* trackBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95285CAD1AF5BF15001989B7 /* trackBackground@2x.png */; };
 		95285CB11AF5BF45001989B7 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95285CB01AF5BF45001989B7 /* CoreMotion.framework */; };
+		953291BF1AFDD15A008106F0 /* responses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953291BE1AFDD15A008106F0 /* responses.swift */; };
 		954342F71AE4A9AD002945DE /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = 954342F61AE4A9AD002945DE /* down.png */; };
 		954342F91AE4A9FF002945DE /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = 954342F81AE4A9FF002945DE /* up.png */; };
 		9548A5A41AF5433F00189D28 /* IJReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9548A5A31AF5433F00189D28 /* IJReachability.swift */; };
@@ -78,6 +79,7 @@
 		95285CAC1AF5BF15001989B7 /* higlightedBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "higlightedBarBackground@2x.png"; sourceTree = "<group>"; };
 		95285CAD1AF5BF15001989B7 /* trackBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trackBackground@2x.png"; sourceTree = "<group>"; };
 		95285CB01AF5BF45001989B7 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		953291BE1AFDD15A008106F0 /* responses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = responses.swift; path = WellnessApp/responses.swift; sourceTree = "<group>"; };
 		954342F61AE4A9AD002945DE /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
 		954342F81AE4A9FF002945DE /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
 		9548A5A31AF5433F00189D28 /* IJReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IJReachability.swift; sourceTree = "<group>"; };
@@ -169,12 +171,13 @@
 		950639CB1AEEC9560054E37C /* Survey screen */ = {
 			isa = PBXGroup;
 			children = (
+				953291BE1AFDD15A008106F0 /* responses.swift */,
 				9559CE4A1ADA29F800DDE65B /* questionHeaderAnswerView.swift */,
 				9559CE461ADA183800DDE65B /* sliderTableViewCell.swift */,
 				9559CE361ADA03E800DDE65B /* question.swift */,
 				9559CE341AD9FB3C00DDE65B /* survey.swift */,
-				9559CE441ADA090300DDE65B /* SurveyTableViewController.swift */,
 				9559CE481ADA197000DDE65B /* buttonTableViewCell.swift */,
+				9559CE441ADA090300DDE65B /* SurveyTableViewController.swift */,
 			);
 			name = "Survey screen";
 			path = ..;
@@ -452,6 +455,7 @@
 				9559CE351AD9FB3C00DDE65B /* survey.swift in Sources */,
 				9559CE4B1ADA29F800DDE65B /* questionHeaderAnswerView.swift in Sources */,
 				9559CE311AD9F86700DDE65B /* homeTableViewCell.swift in Sources */,
+				953291BF1AFDD15A008106F0 /* responses.swift in Sources */,
 				9559CE301AD9F86700DDE65B /* homeTableViewController.swift in Sources */,
 				9548A5A41AF5433F00189D28 /* IJReachability.swift in Sources */,
 				9559CE321AD9F86700DDE65B /* loginViewController.swift in Sources */,

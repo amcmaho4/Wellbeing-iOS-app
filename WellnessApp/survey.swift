@@ -35,6 +35,7 @@ class survey {
 	var notifications = [UILocalNotification]()
 	var completed: Bool
 	var surveyCompletedTime: NSDate?
+	
 
 	init(){
 		self.questions = [question]()
@@ -46,7 +47,7 @@ class survey {
 		self.surveyTimeNiceFormat = ""
 		self.surveyExpirationTimeNiceFormat = ""
 		self.userEmail = ""
-		sendDays = []
+		sendDays = [0,1,2,3,4,5,6]
 		active = true
 		completed = false
 	}
@@ -104,23 +105,20 @@ func queryParseForSurveyData(){
 	
 	
 	}
-
-	
 	func pastPresentOrFuture()->String{
-		//if(self.active == true){
+		if(self.active == true){
 			if contains(self.sendDays, getDayOfWeek()) {
-				
 				if( expirationTime.timeIntervalSinceNow > 0 && surveyTime.timeIntervalSinceNow < 0){
 					return "present"
 				}
 				else if(expirationTime.timeIntervalSinceNow < 0 ){
 					return "past"
 				}
-				else {//if(surveyTime.timeIntervalSinceNow < 0){
+				else {
 					return "future"
 				}
 			}
-		//}
+		}
 		return "none"
 	}
 	
@@ -200,7 +198,7 @@ func makeNotifications() {
 }
 func cancelNotifications(){
 	for notification in notifications{
-		//UIApplication.sharedApplication().cancelLocalNotification(notification)
+		UIApplication.sharedApplication().cancelLocalNotification(notification)
 	}
 }
 	

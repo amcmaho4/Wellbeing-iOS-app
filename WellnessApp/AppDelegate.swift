@@ -11,7 +11,7 @@ import Parse
 import Bolts
 
 let mySpecialNotificationKey = "com.amcmaho4.specialNotificationKey"
-
+let updateKey = "com.amcmaho4.updateKey"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,7 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var sendTime: NSDate = NSDate().dateByAddingTimeInterval(10)
 	var allNotificationsForApp: [UILocalNotification]?
 	var dataShouldBeReset: Bool?
-	
+	var Terminated:Bool? {
+		get {
+			return NSUserDefaults.standardUserDefaults().objectForKey("Terminated") as? Bool
+		}
+		set {
+			NSUserDefaults.standardUserDefaults().setBool(newValue!, forKey: "Terminated")
+		}
+	}
 	
 	func reset() ->Bool{
 		return dataShouldBeReset!
@@ -31,8 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		dataShouldBeReset = true 
 		initializeParse()
 		setRootViewController();
-		
-		
+		print("launching")
 		application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
 		var minfetch = UIApplicationBackgroundFetchIntervalMinimum  // set to the minimum amount
 		
@@ -42,9 +48,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			application.registerUserNotificationSettings(settings)
 			//application.registerForRemoteNotifications()
 		//}
-		
+		NSNotificationCenter.defaultCenter().postNotificationName(updateKey, object: self)
 
-		return true
+	return true
 	}
 	
 	func application(application: UIApplication,didRegisterUserNotificationSettings
@@ -54,38 +60,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				/* The user did not allow us to send notifications */
 				return
 			}
-			//updateParseLocalDataStore()
 	}
-
-
 	
 	func applicationDidEnterBackground(application: UIApplication) {
-		// Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-		// If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-		print("entering background")
+		
 	}
-
+	
 	func applicationWillTerminate(application: UIApplication) {
-		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-		print("terminating")
-
+		//Terminated = true
 	}
+	
 	func applicationWillEnterForeground(application: UIApplication) {
 	
 	}
 	
 	func initializeParse(){
 		Parse.enableLocalDatastore()
-		// Initialize Parse.
 		Parse.setApplicationId("wFcqaTXYYCeNqKJ8wswlwtXChEzJyFyBV7N5JOZX",
 			clientKey: "MomzqWhPQSVPNZ6hNjXtSSs6Lah5OMQCE8p4amsW")
 	}
 	
-	func clearCurrentLocalData(){
-		PFObject.unpinAllObjects()
-		//UIApplication.sharedApplication().cancelAllLocalNotifications()
-	}
-
 	
 	func updateParseLocalDataStore(){
 		var querysurveyStrings: [String] = [String]()
@@ -119,13 +113,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
 		
-		//clearCurrentLocalData()
 		let currentDate = NSDate()
 		let calendar = NSCalendar.currentCalendar()
 		let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate:  NSDate())
 		let currentHour = components.hour
 		
-		if(currentHour>12){
+		if(currentHour<=2){
+			
+					application.cancelAllLocalNotifications()	
 					var querysurveyStrings: [String] = [String]()
 					var query: PFQuery = PFQuery(className:"SurveySummary")
 					query.findObjectsInBackground().continueWithSuccessBlock({
@@ -145,7 +140,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 										})
 									})
 							}
-							print("here")
 							NSNotificationCenter.defaultCenter().postNotificationName(mySpecialNotificationKey, object: self)
 							return PFObject.pinAllInBackground(AllSurveys as? [AnyObject])
 							})
@@ -155,7 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		else {
 			completionHandler(UIBackgroundFetchResult.NewData)
 		}
-		}
+	}
 	
 	func setRootViewController(){
 				self.currentUser = PFUser.currentUser()
@@ -170,7 +164,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 					self.window!.rootViewController = loginviewController
 				}
 	}
-
-	
 }
 

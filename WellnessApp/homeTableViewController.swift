@@ -20,18 +20,15 @@ class homeTableViewController: UITableViewController {
 	var inProgressSurveys: [survey] = [survey]()
 	var currentUser = PFUser.currentUser
 	var reset = false
+	
 
     override func viewDidLoad() {
 		super.viewDidLoad()
 		self.hidesBottomBarWhenPushed = true;
-		
-		
-		//NSNotificationCenter.defaultCenter().addObserver(self, selector: "emptyTheArrays", name: mySpecialNotificationKey, object: nil)r
+		//maketheobjectswithLocalDataStore()
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "emptyTheArrays", name: mySpecialNotificationKey, object: nil)
-		
-		NSNotificationCenter.defaultCenter().removeObserver(mySpecialNotificationKey)
-		
-		//func removeObserver(_ observer: NSObject, forKeyPath keyPath: String,context context: UnsafeMutablePointer<Void>)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "emptyTheArrays", name: updateKey, object: nil)
+	
 
 		var currentUser = PFUser.currentUser()
 		if currentUser != nil {
@@ -48,6 +45,11 @@ class homeTableViewController: UITableViewController {
 		self.tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: self.cellIdentifier)
 		self.tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: self.cellHeaderIdentifier)
 		//maketheobjectswithLocalDataStore()
+		
+		
+		if AllSurveys.isEmpty{
+			maketheobjectswithLocalDataStore()
+		}
 		self.tableView.reloadData()
 		self.tableView.setNeedsDisplay()
 		
@@ -74,6 +76,7 @@ class homeTableViewController: UITableViewController {
     }
 
 	func emptyTheArrays(){
+		
 		AllSurveys.removeAll(keepCapacity: false)
 		completedSurveys.removeAll(keepCapacity: false)
 		pastSurveyArrays.removeAll(keepCapacity: false)
@@ -121,9 +124,9 @@ class homeTableViewController: UITableViewController {
 					cell.timeLabel.text = "Expired: "+currentSurvey.surveyExpirationTimeNiceFormat
 
 					if (pastSurveyArrays[indexPath.row].completed){
-						cell.timeLabel.text = "completed"}
+						cell.timeLabel.text = "Expired: "+currentSurvey.surveyExpirationTimeNiceFormat+", completed"}
 					else{
-						cell.timeLabel.text = "missed"
+						cell.timeLabel.text = "Expired: "+currentSurvey.surveyExpirationTimeNiceFormat+", missed"
 					}
 				}
 			}
@@ -171,7 +174,6 @@ class homeTableViewController: UITableViewController {
 			return CustomHeaderCell( style: UITableViewCellStyle.Default, reuseIdentifier: "HeaderCell" );
 		}
 	}
-	
 	override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) ->CGFloat{
 		return 50;
 	}
@@ -215,7 +217,9 @@ class homeTableViewController: UITableViewController {
 								if( surveyTimes.count>1){
 									survey1!.dailyIterationNumber = index+1}
 								survey1!.sendTime = time
-								survey1!.sendDays = objects[surveyNumber]["Days"] as! [Int]
+								if let days = objects[surveyNumber]["Days"] as? [Int] {
+									survey1!.sendDays = days
+								}
 								
 								survey1!.surveyActiveDuration = objects[surveyNumber]["surveyActiveDuration"] as! Double
 								survey1!.versionIdentifier = objects[surveyNumber]["Version"] as! Double
@@ -238,32 +242,17 @@ class homeTableViewController: UITableViewController {
 		}
 		
 	}
-	func recategorizeTheSurveys(){
-	
-	
-	
-	}
-	
-	
+
 	func updateTheSurveys(){
-		
+
 		if !(surveysArray.isEmpty && futureSurveysArray.isEmpty && pastSurveyArrays.isEmpty){
 			AllSurveys = surveysArray + pastSurveyArrays + futureSurveysArray
 		}
-		
 		self.surveysArray.removeAll(keepCapacity: false)
 		self.futureSurveysArray.removeAll(keepCapacity: false)
 		self.pastSurveyArrays.removeAll(keepCapacity: false)
 		self.pastSurveyArrays = completedSurveys
 
-		
-//	AllSurveys = surveysArray + futureSurveysArray + pastSurveyArrays
-//	
-//	self.surveysArray.removeAll(keepCapacity: true)
-//	self.futureSurveysArray.removeAll(keepCapacity: true)
-//	self.pastSurveyArrays.removeAll(keepCapacity: true)
-//	self.pastSurveyArrays = completedSurveys
-	
 	// check the time of each survey created to decide which section it should go in, past , present, or future
 	for survey in self.AllSurveys{
 		if(survey.pastPresentOrFuture() == "present"){
@@ -278,19 +267,19 @@ class homeTableViewController: UITableViewController {
 			futureSurveysArray.append(survey)
 		}
 		else if (survey.pastPresentOrFuture() == "past"){
-			//surveysArray.append(survey)
-
 			pastSurveyArrays.append(survey)
 		}
-		else if (survey.pastPresentOrFuture() == "other"){
-			otherSurveys.append(survey)
+		else if (survey.pastPresentOrFuture() == "none"){
+			pastSurveyArrays.append(survey)
+ 
+			
+			//otherSurveys.append(survey)
 		}
 		
 		}
 		self.refreshControl?.endRefreshing()
 		self.tableView.reloadData()
 		self.tableView.setNeedsDisplay()
-		
 	}
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -298,8 +287,7 @@ class homeTableViewController: UITableViewController {
 		let nextView :SurveyTableViewController = segue.destinationViewController as! SurveyTableViewController
 		nextView.currentSurvey = surveysArray[theSurveySelected]
 	}
-	//surveysArray[theSurveySelected].cancelNotifications()
-}
+	}
 }
 
 
