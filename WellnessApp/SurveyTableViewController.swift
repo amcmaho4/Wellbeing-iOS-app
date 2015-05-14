@@ -25,7 +25,7 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
         super.viewDidLoad()
 		up.imageInsets.left = self.tableView.frame.width/4
 		down.imageInsets.left = 3*self.tableView.frame.width/4
-
+		self.tableView.separatorColor = UIColor.blackColor()
 		self.tableView.contentOffset = CGPointMake(0, 0 - self.tableView.contentInset.top)
 		self.navigationController?.toolbarHidden = false
 		tableView!.rowHeight = UITableViewAutomaticDimension
@@ -202,7 +202,7 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 		else if currentSurvey.questions[indexPath.section].answerType == "Checkbox" {
 			let cell = buttonTableViewCell()
 			cell.setAnswer(currentSurvey.questions[indexPath.section].answerOptions, answerInd: indexPath.row)
-			setTheStateAtIndexPath(indexPath) // selects/ deselects the appropriate cells
+			setTheStateAtIndexPathCheck(indexPath) // selects/ deselects the appropriate cells
 			return cell
 		}
 		else if currentSurvey.questions[indexPath.section].answerType == "Textbox" {
@@ -239,14 +239,49 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 			currentSurvey.questions[indexPath.section].answer.append("hello")
 		}
 		else if currentSurvey.questions[indexPath.section].answerType == "Checkbox"{
-			currentSurvey.questions[indexPath.section].answerIndex = indexPath.row
-			currentSurvey.questions[indexPath.section].answer.append("\(indexPath.row)")
+			//currentSurvey.questions[indexPath.section].answerIndex = indexPath.row
+			var currentAnswers = currentSurvey.questions[indexPath.section].answer
 			currentSurvey.questions[indexPath.section].unixTimeStamp = NSDate().timeIntervalSince1970 * 1000
-			//update the tableview values
-			var visiblePaths :NSArray  = tableView.indexPathsForVisibleRows()!
-			for path in visiblePaths{
-				setTheStateAtIndexPath(path as! NSIndexPath)
+			tableView.cellForRowAtIndexPath(indexPath)?.setSelected(false, animated: false)
+			
+			if contains (currentAnswers, "\(indexPath.row)") {
+				for (index, a) in enumerate (currentAnswers) {
+					
+					if a == "\(indexPath.row)" {
+						currentSurvey.questions[indexPath.section].answer.removeAtIndex(index)
+						continue
+					}
+					
+				}
+				tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = .None
 			}
+			else{
+				currentSurvey.questions[indexPath.section].answer.append("\(indexPath.row)")
+				tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = .Checkmark
+			}
+			
+//			
+//			override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+//				
+//				if currentSurvey.questions[indexPath.section].answerType == "Checkmark" {
+//					var currentAnswers = currentSurvey.questions[indexPath.section].answer
+//					if contains (currentAnswers, "\(indexPath.row)") {
+//						tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = .None
+//						for (index, a) in enumerate (currentAnswers) {
+//							if a == "\(indexPath.row)" {
+//								currentAnswers.removeAtIndex(index)
+//								continue
+//							}
+//						}
+//					}
+//				}
+			//}
+//
+//			//update the tableview values
+//			var visiblePaths :NSArray  = tableView.indexPathsForVisibleRows()!
+//			for path in visiblePaths{
+//				setTheStateAtIndexPathCheck(path as! NSIndexPath)
+//			}
 		}
 			
 		else{
@@ -270,6 +305,20 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 			tableView.deselectRowAtIndexPath(path, animated: false)
 		}
 	}
+	
+	func setTheStateAtIndexPathCheck(path: NSIndexPath){
+		
+		if(currentSurvey.questions[path.section].answerIndex != -1 && currentSurvey.questions[path.section].answerIndex == path.row){
+			tableView.cellForRowAtIndexPath(path)?.accessoryType = .Checkmark
+		}
+		else if contains(currentSurvey.questions[path.section].answer ,"\(path.row)"){
+			tableView.cellForRowAtIndexPath(path)?.accessoryType = .Checkmark
+		}
+		else{
+			tableView.cellForRowAtIndexPath(path)?.accessoryType = .None
+		}
+	}
+	
 	
 	
 	
