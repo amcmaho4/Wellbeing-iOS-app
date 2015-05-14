@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var surveyFetchEndTime = 3    //*************************CHANGE THIS IF NEEDED ********************//
 	var surveyFetchStartTime = 0
-	
+
 	var window: UIWindow?
 	var sendTime: NSDate = NSDate().dateByAddingTimeInterval(10)
 	var allNotificationsForApp: [UILocalNotification]?
@@ -121,10 +121,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate:  NSDate())
 		let currentHour = components.hour
 		
-		
 		var surveyFetchEndTime = 3    //*************************CHANGE THIS IF NEEDED ********************//
 		var surveyFetchStartTime = 0
-		if(currentHour >= surveyFetchStartTime && currentHour <= surveyFetchEndTime){
+		if(currentHour >= surveyFetchStartTime && currentHour <= surveyFetchEndTime-1){
+
 			
 					application.cancelAllLocalNotifications()	
 					var querysurveyStrings: [String] = [String]()
