@@ -132,14 +132,7 @@ class homeTableViewController: UITableViewController {
 			}
 			
 			cell.surveyLabel.text = currentSurvey.surveyDescriptor
-			
-//			if let surNum = currentSurvey.dailyIterationNumber as Int? {
-//				cell.surveyLabel.text? += " \(surNum)"
-//			}
-			
-			//set the image according to the description of the survey
 			cell.setCellImage(currentSurvey.surveyDescriptor)
-			//self.tableView.reloadData()
 			
 			return cell;
 			}
