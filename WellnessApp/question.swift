@@ -15,6 +15,7 @@ class question {
 	var answerType : String!
 	var timeStamp : NSDate
 	var answerIndex : Int
+	var answer : [String]
 	var unixTimeStamp: Double
 	var questionID :Int
 	var endPointStrings: [String]
@@ -33,6 +34,7 @@ class question {
 		self.unixTimeStamp = 0
 		self.questionID = 0
 		self.endPointStrings = ["", ""]
+		self.answer = [""]
 
 	}
 	

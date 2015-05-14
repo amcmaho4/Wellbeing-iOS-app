@@ -22,13 +22,12 @@ class buttonTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-	func setAnswer(answersOptions: [String] ,answerIndex: Int){
+	func setAnswer(answersOptions: [String] ,answerInd: Int){
 		self.buttonLabel = UILabel()
 		
-		self.buttonLabel!.text = answersOptions[answerIndex]
+		self.buttonLabel!.text = answersOptions[answerInd]
 		var viewsDictionary: [String: UILabel] = ["buttonLabel": self.buttonLabel! ]
 		self.buttonLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
-		//viewsDictionary["buttonLabel"] = buttonLabel
 		self.addSubview(self.buttonLabel!)
 		
 		

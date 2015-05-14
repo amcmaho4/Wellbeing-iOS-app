@@ -74,10 +74,6 @@ func getAnswered()->CGFloat{
 }
 	
 func queryParseForSurveyData(){
-//
-	
-
-
 		var tempQuest : question = question()
 		var query = PFQuery(className:surveyName)
 		query.fromLocalDatastore()
@@ -92,6 +88,7 @@ func queryParseForSurveyData(){
 						tempQuest.questionString = objects[q]["question"] as! String
 						tempQuest.questionID = objects[q]["questionId"] as! Int
 						tempQuest.endPointStrings = objects[q]["endPoints"] as! [String]
+						
 						self.questions.append(tempQuest)
 					}
 				}
@@ -112,10 +109,12 @@ func queryParseForSurveyData(){
 					return "present"
 				}
 				else if(expirationTime.timeIntervalSinceNow < 0 ){
-					return "past"
+					return "present"
+					//return "past"
 				}
 				else {
-					return "future"
+					return "present"
+					//return "future"
 				}
 			}
 		}

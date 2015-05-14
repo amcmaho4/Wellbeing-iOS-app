@@ -39,6 +39,7 @@ class homeTableViewController: UITableViewController {
 		}
 		self.tabBarController
 		self.tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: self.cellIdentifier)
+		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "enteredForeground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
 		
 		// register hometableview subclass

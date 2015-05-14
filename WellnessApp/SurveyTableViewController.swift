@@ -8,7 +8,7 @@
 
 import UIKit
 import Parse
-
+import SystemConfiguration
 let myUpdateTableKey = "com.amcmaho4.updateKey"
 
 class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
@@ -16,8 +16,16 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 	var completed = false
 	@IBOutlet var nextbutton: UIBarButtonItem!
 
+	@IBOutlet var up: UIBarButtonItem!
+	
+	@IBOutlet var down: UIBarButtonItem!
+	var tap:UITapGestureRecognizer = UITapGestureRecognizer()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+		up.imageInsets.left = self.tableView.frame.width/4
+		down.imageInsets.left = 3*self.tableView.frame.width/4
+
 		self.tableView.contentOffset = CGPointMake(0, 0 - self.tableView.contentInset.top)
 		self.navigationController?.toolbarHidden = false
 		tableView!.rowHeight = UITableViewAutomaticDimension
@@ -33,8 +41,29 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 		self.clearsSelectionOnViewWillAppear = false
 		print("load the individual survey  view controller")
 		completed = false
+		
+		
+		
+		tap = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		tableView.addGestureRecognizer(tap)
 
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "listenForTap", name: UIKeyboardDidShowNotification, object: nil)
+		tap.enabled = false
     }
+	func listenForTap(){
+		tap.enabled = true
+	}
+	func DismissKeyboard() {
+		tableView.endEditing(true)
+		tap.enabled = false
+		var visiblePaths :NSArray  = tableView.indexPathsForVisibleRows()!
+		for path in visiblePaths {
+			if let cell = tableView.cellForRowAtIndexPath(path as! NSIndexPath) as? textResponseTableViewCell {
+				currentSurvey.questions[path.section].answer[0] = cell.responseText.text
+				
+			}
+		}
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -54,6 +83,10 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if currentSurvey.questions[section].answerType == "Button" {
         	return currentSurvey.questions[section].answerOptions.count
+		}
+		else if currentSurvey.questions[section].answerType == "Checkbox" {
+			return currentSurvey.questions[section].answerOptions.count
+
 		}
 		else{
 			return 1
@@ -80,12 +113,14 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 			if let cell = tableView.cellForRowAtIndexPath(path as! NSIndexPath) as? sliderTableViewCell {
 				if let time = cell.lastEditedAt as NSDate?{
 					currentSurvey.questions[path.section].answerIndex = Int(cell.questionSlider!.value)
+					currentSurvey.questions[path.section].answer[0] = "\(Int(cell.questionSlider!.value))"
 					currentSurvey.questions[path.section].timeStamp = time
 				}
 			}
 		}
 	
 	}
+	
 
 	@IBAction func pressed(sender: AnyObject) {
 		print("bar button action")
@@ -152,9 +187,7 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 	}
 		
 		
-	
-	
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		var reuseIdentifier = "cell"
 		if(indexPath.section>currentSurvey.questions.count || indexPath.row>currentSurvey.questions[indexPath.section].answerOptions.count){
 			let cell = UITableViewCell()
@@ -164,8 +197,19 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 		
 		if currentSurvey.questions[indexPath.section].answerType == "Button" {
 			let cell = buttonTableViewCell()
-			cell.setAnswer(currentSurvey.questions[indexPath.section].answerOptions, answerIndex: indexPath.row)
+			cell.setAnswer(currentSurvey.questions[indexPath.section].answerOptions, answerInd: indexPath.row)
 			setTheStateAtIndexPath(indexPath) // selects/ deselects the appropriate cells
+			return cell
+		}
+		else if currentSurvey.questions[indexPath.section].answerType == "Checkbox" {
+			let cell = buttonTableViewCell()
+			cell.setAnswer(currentSurvey.questions[indexPath.section].answerOptions, answerInd: indexPath.row)
+			setTheStateAtIndexPath(indexPath) // selects/ deselects the appropriate cells
+			return cell
+		}
+		else if currentSurvey.questions[indexPath.section].answerType == "Textbox" {
+			let cell = tableView.dequeueReusableCellWithIdentifier("textCell") as! textResponseTableViewCell!
+			//currentSurvey.questions[indexPath.section].answer[0] = cell.responseText.text
 			return cell
 		}
 		else{
@@ -173,9 +217,11 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 			cell.display(currentSurvey.questions[indexPath.section])
 			return cell
 		}
-    }
+	}
 
-
+	
+	
+	
 
 
 	//override func tableView(tableView: UITableView,
@@ -183,6 +229,7 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if currentSurvey.questions[indexPath.section].answerType == "Button" {
 			currentSurvey.questions[indexPath.section].answerIndex = indexPath.row
+			currentSurvey.questions[indexPath.section].answer[0] = "\(indexPath.row)"
 			currentSurvey.questions[indexPath.section].unixTimeStamp = NSDate().timeIntervalSince1970 * 1000
 			//update the tableview values
 			var visiblePaths :NSArray  = tableView.indexPathsForVisibleRows()!
@@ -190,6 +237,23 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 				setTheStateAtIndexPath(path as! NSIndexPath)
 			}
 		}
+		else if currentSurvey.questions[indexPath.section].answerType == "Textbox"{
+			
+			let cell = tableView.cellForRowAtIndexPath(indexPath) as! textResponseTableViewCell
+			var words = cell.responseText.text
+			currentSurvey.questions[indexPath.section].answer.append(words)
+		}
+		else if currentSurvey.questions[indexPath.section].answerType == "Checkbox"{
+			currentSurvey.questions[indexPath.section].answerIndex = indexPath.row
+			currentSurvey.questions[indexPath.section].answer.append("\(indexPath.row)")
+			currentSurvey.questions[indexPath.section].unixTimeStamp = NSDate().timeIntervalSince1970 * 1000
+			//update the tableview values
+			var visiblePaths :NSArray  = tableView.indexPathsForVisibleRows()!
+			for path in visiblePaths{
+				setTheStateAtIndexPath(path as! NSIndexPath)
+			}
+		}
+			
 		else{
 			// slider view data is gathered when the user scrolls
 			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? sliderTableViewCell
@@ -203,6 +267,9 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 	func setTheStateAtIndexPath(path: NSIndexPath){
 		if(currentSurvey.questions[path.section].answerIndex != -1 && currentSurvey.questions[path.section].answerIndex == path.row){
 				tableView.selectRowAtIndexPath(path, animated: false, scrollPosition: UITableViewScrollPosition.None)
+		}
+		else if contains(currentSurvey.questions[path.section].answer ,"\(path.row)"){
+			tableView.selectRowAtIndexPath(path, animated: false, scrollPosition: UITableViewScrollPosition.None)
 		}
 		else{
 			tableView.deselectRowAtIndexPath(path, animated: false)
@@ -247,7 +314,9 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 				
 			surveyResponse["questionResponseString"] = questionN.answerOptions[questionN.answerIndex]
 			surveyResponse["questionResponse"] = questionN.answerIndex
-
+			
+			surveyResponse["questionResponseArray"] = questionN.answer
+				
 			surveyResponse["Category"] = currentSurvey.surveyDescriptor
 
 			surveyResponse["unixTimeStamp"] = questionN.timeStamp.timeIntervalSince1970*1000

@@ -78,7 +78,11 @@ class sliderTableViewCell: UITableViewCell{
 		
 		// Make and place the Maximum sider view in the lower left hand corner of the cell
 		self.minLabel = UILabel()
-		self.minLabel?.text = self.sliderAnswers![0]
+		if sliderQuestion.endPointStrings.count > 0 {
+			minLabel!.text = sliderQuestion.endPointStrings[0]
+		}
+		
+
 		self.minLabel!.font = UIFont.systemFontOfSize(12)
 		self.minLabel!.lineBreakMode = .ByWordWrapping
 		self.minLabel!.numberOfLines = 0
@@ -96,7 +100,9 @@ class sliderTableViewCell: UITableViewCell{
 		
 		// Make and place the Maximum sider view in the lower right hand corner of the cell
 		self.maxLabel = UILabel()
-		self.maxLabel?.text = self.sliderAnswers![sliderAnswers.count-1]
+		if sliderQuestion.endPointStrings.count > 0 {
+			maxLabel!.text = sliderQuestion.endPointStrings[1]
+		}
 		self.maxLabel!.font = UIFont.systemFontOfSize(12)
 		self.maxLabel!.lineBreakMode = .ByWordWrapping
 		self.maxLabel!.numberOfLines = 0
@@ -140,6 +146,7 @@ class sliderTableViewCell: UITableViewCell{
 		var intval: Int = Int(sender.value)
 		self.sliderLabel?.text = self.sliderAnswers![ intval ]
 		sliderQuestion?.answerIndex = intval
+		sliderQuestion?.answer[0] = "\(intval)"
 		setSelected(true, animated: false)
 		self.lastEditedAt = NSDate()
 }

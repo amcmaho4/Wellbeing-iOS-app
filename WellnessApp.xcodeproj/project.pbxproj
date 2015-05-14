@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9521C6BD1B04686100D53C8C /* textResponseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9521C6BC1B04686100D53C8C /* textResponseTableViewCell.swift */; };
 		95285CAA1AF5BE81001989B7 /* TLTiltSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 95285CA91AF5BE81001989B7 /* TLTiltSlider.m */; };
 		95285CAE1AF5BF15001989B7 /* higlightedBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95285CAC1AF5BF15001989B7 /* higlightedBarBackground@2x.png */; };
 		95285CAF1AF5BF15001989B7 /* trackBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95285CAD1AF5BF15001989B7 /* trackBackground@2x.png */; };
@@ -74,6 +75,7 @@
 /* Begin PBXFileReference section */
 		0B4CE71509C70E9B48EEF491 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		950639F51AEEE0480054E37C /* WellnessApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WellnessApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		9521C6BC1B04686100D53C8C /* textResponseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = textResponseTableViewCell.swift; sourceTree = "<group>"; };
 		95285CA81AF5BE81001989B7 /* TLTiltSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLTiltSlider.h; sourceTree = "<group>"; };
 		95285CA91AF5BE81001989B7 /* TLTiltSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLTiltSlider.m; sourceTree = "<group>"; };
 		95285CAC1AF5BF15001989B7 /* higlightedBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "higlightedBarBackground@2x.png"; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				9559CE341AD9FB3C00DDE65B /* survey.swift */,
 				9559CE481ADA197000DDE65B /* buttonTableViewCell.swift */,
 				9559CE441ADA090300DDE65B /* SurveyTableViewController.swift */,
+				9521C6BC1B04686100D53C8C /* textResponseTableViewCell.swift */,
 			);
 			name = "Survey screen";
 			path = ..;
@@ -446,6 +449,7 @@
 				95285CAA1AF5BE81001989B7 /* TLTiltSlider.m in Sources */,
 				9559CE331AD9F86700DDE65B /* signinViewController.swift in Sources */,
 				9559CE371ADA03E800DDE65B /* question.swift in Sources */,
+				9521C6BD1B04686100D53C8C /* textResponseTableViewCell.swift in Sources */,
 				95CAD5B51ADB6CCE008CC7A1 /* time.swift in Sources */,
 				9559CE451ADA090300DDE65B /* SurveyTableViewController.swift in Sources */,
 				9559CE491ADA197000DDE65B /* buttonTableViewCell.swift in Sources */,
