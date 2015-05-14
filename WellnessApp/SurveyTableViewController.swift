@@ -59,7 +59,8 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 		var visiblePaths :NSArray  = tableView.indexPathsForVisibleRows()!
 		for path in visiblePaths {
 			if let cell = tableView.cellForRowAtIndexPath(path as! NSIndexPath) as? textResponseTableViewCell {
-				currentSurvey.questions[path.section].answer[0] = cell.responseText.text
+				currentSurvey.questions[path.section].answer[0] = "test text"
+					//cell.responseText.text
 				
 			}
 		}
@@ -124,9 +125,9 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 
 	@IBAction func pressed(sender: AnyObject) {
 		print("bar button action")
-		//var last = tableView.indexPathsForVisibleRows()?.last as! NSIndexPath
+	
 		var last = tableView.indexPathsForVisibleRows()!.last as! NSIndexPath
-		//tableView.cellForRowAtIndexPath(last as NSIndexPath)?.backgroundColor = UIColor.redColor();
+		
 		var lastSection = (tableView.indexPathsForVisibleRows()?.last!.section)!
 		
 		if lastSection-1 >= 0{
@@ -161,9 +162,6 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 	}
 	@IBAction func backbutton(sender: AnyObject) {
 		print("bar button action")
-		
-		//var last = tableView.indexPathsForVisibleRows()?.last as! NSIndexPath
-		
 		var last: AnyObject = tableView.indexPathsForVisibleRows()!.last!
 
 		var lastSection = (tableView.indexPathsForVisibleRows()?.last!.section)!
@@ -219,9 +217,6 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 		}
 	}
 
-	
-	
-	
 
 
 	//override func tableView(tableView: UITableView,
@@ -239,9 +234,9 @@ class SurveyTableViewController: UITableViewController, UIScrollViewDelegate {
 		}
 		else if currentSurvey.questions[indexPath.section].answerType == "Textbox"{
 			
-			let cell = tableView.cellForRowAtIndexPath(indexPath) as! textResponseTableViewCell
-			var words = cell.responseText.text
-			currentSurvey.questions[indexPath.section].answer.append(words)
+//			let cell = tableView.cellForRowAtIndexPath(indexPath) as! textResponseTableViewCell
+//			var words = cell.responseText.text
+			currentSurvey.questions[indexPath.section].answer.append("hello")
 		}
 		else if currentSurvey.questions[indexPath.section].answerType == "Checkbox"{
 			currentSurvey.questions[indexPath.section].answerIndex = indexPath.row
